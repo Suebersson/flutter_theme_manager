@@ -56,7 +56,7 @@ abstract class AppTheme{
   /// Definir o tema fazendo uma Cópia do tema [ligth] ou [dark] 
   /// e adicinar os valores de preferência para cada tema recebidos 
   /// das classes [LightValues] e [DarkValues] 
-  static ThemeData _getThemeMode(LightValues value){
+  static ThemeData _getThemeMode<T extends LightValues>(T value){
     return ThemeData(
 
 
