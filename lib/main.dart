@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'theme/appTheme.dart';
-import 'pages/homePage.dart';
+import 'theme/app_theme.dart';
+import 'pages/home_page.dart';
 
 void main() async{
 
@@ -9,30 +9,27 @@ void main() async{
 
   //verificar se o app esta configurada para o modo dark antes de iniciar o app
   await ThemeController.loadTheme().whenComplete(() {
-    runApp(StartApp());
+    runApp(const StartApp());
   });
 
 }
 
-class StartApp extends StatelessWidget with ThemeController{
 
+class StartApp extends StatelessWidget {
+  const StartApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     print('initialazed app');
     return ValueListenableBuilder<bool>(
       valueListenable: ThemeController.isDarkMode,
-      builder: (_context, bool _isDarkMode, _child) {
+      builder: (_context, _isDarkMode, _child) {
         return MaterialApp(
           title: 'Theme manager',
-          //tema dinamico para o material e o cupertino
-          theme: _context.themeData, //_isDarkMode ? AppTheme.darkMode : AppTheme.lightMode,
+          //tema dinamico para o material ou cupertino
+          theme: _isDarkMode ? AppTheme.darkMode : AppTheme.lightMode,
           home: const HomePage(),
         );
       }
     );
   }
 }
-
-
-
-

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../theme/appTheme.dart';
+import '../theme/app_theme.dart';
 
 class HomePage extends StatelessWidget with ThemeController {
   const HomePage({Key? key}) : super(key: key);
@@ -18,8 +18,12 @@ class HomePage extends StatelessWidget with ThemeController {
           IconButton(
             icon: Icon(
               Icons.add, 
-              color: Theme.of(context).appBarTheme.actionsIconTheme?.color,
-              size: Theme.of(context).appBarTheme.actionsIconTheme?.size,
+              //color: Theme.of(context).appBarTheme.actionsIconTheme?.color,
+              //size: Theme.of(context).appBarTheme.actionsIconTheme?.size,
+              //color: context.themeData.appBarTheme.actionsIconTheme?.color,
+              //size: context.themeData.appBarTheme.actionsIconTheme?.size,
+              color: themeData.appBarTheme.actionsIconTheme?.color,
+              size: themeData.appBarTheme.actionsIconTheme?.size,
             ),
             padding: const EdgeInsets.only(right: 15),
             onPressed: (){},
@@ -46,14 +50,16 @@ class HomePage extends StatelessWidget with ThemeController {
                 ),
                 Switch(
                   //formas de atribuir um valor do ThemeData a uma propriedade 
-                  //activeColor: ThemeData.light().toggleableActiveColor,
                   //activeColor: Theme.of(context).toggleableActiveColor,
                   //activeColor: context.themeData.toggleableActiveColor,
+                  //activeColor: themeData.toggleableActiveColor,
                   value: context.isDarkMode,
                   onChanged: (bool value){// definir o tema da app
                     //ThemeController.isDarkMode.value = value;
                     // Definindo pelo context
-                    context.setDarkMode = value;
+                    //context.setDarkMode = value;
+                    // de qualquer objeto, até fora da árvore de widgets
+                    setDarkMode = value;
                   },
                 ),
               ],
@@ -64,7 +70,7 @@ class HomePage extends StatelessWidget with ThemeController {
             height: double.infinity,
             width: double.infinity,
             alignment: Alignment.center,
-            child: FlutterLogo(size: 300), 
+            child: const FlutterLogo(size: 300), 
           ),
          
         ],

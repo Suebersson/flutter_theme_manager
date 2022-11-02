@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'lightValues.dart';
-import 'darkValues.dart';
+import 'light_values.dart';
+import 'dark_values.dart';
+
+/// Numa aplicação real, para ter uma instância do [SharedPreferences] sigleton 
+/// disponivel para toda app será necessário usar um gerenciador de injeção de dependências 
+late final SharedPreferences appConfigData;
 
 /// Classe responsável por ler e definir o tema da app através do evento [addListener]
 abstract class ThemeController {
@@ -11,56 +15,68 @@ abstract class ThemeController {
   static final ValueNotifier<bool> isDarkMode = ValueNotifier<bool>(false);
 
   //verificar o modo dark está ativo
-  static Future<void> loadTheme() async{
+  static Future<void> loadTheme() async {
+    
+    appConfigData = await SharedPreferences.getInstance();
 
-    await SharedPreferences.getInstance().then((prefs) {
-      if(prefs.containsKey('IsDarkMode')){
-        if(prefs.getBool('IsDarkMode')!) isDarkMode.value = true;
-      }else{
-        prefs.setBool('IsDarkMode', false);
-      }
-      //print('Dark Mode: ${isDarkMode.value.toString()}');
-    });
+    if(appConfigData.containsKey('IsDarkMode')) {
+      if(appConfigData.getBool('IsDarkMode')!) isDarkMode.value = true;
+    } else {
+      appConfigData.setBool('IsDarkMode', false);
+    }
 
     isDarkMode.addListener(() {
-      SharedPreferences.getInstance().then((prefs) {
-        prefs.setBool('IsDarkMode', isDarkMode.value);
-        print('Setted dark Mode: ${isDarkMode.value.toString()}');
-      });
+      appConfigData.setBool('IsDarkMode', isDarkMode.value);
+      print('Setted dark Mode: ${isDarkMode.value}');
     });
 
   }
 
 }
 
-/// Injetar o tema da app dentro do context de toda árvores de widgtes
-extension InjectThemeIntoContext on BuildContext{
+/// Injetar o tema da app dentro do context de toda árvores de widgets
+extension ImplementThemeIntoContext on BuildContext {
 
   bool get isDarkMode  => ThemeController.isDarkMode.value;
 
-  set setDarkMode(bool value) => ThemeController.isDarkMode.value = value;  
-    
+  set setDarkMode(bool value) => ThemeController.isDarkMode.value = value;
+
+  ThemeData get themeData => Theme.of(this);
+
+}
+
+/// Desse forma é possível acessar o tema de qualquer [Object] 
+/// em toda app mesmo sem o context
+extension ImplementThemeIntoObject on Object {
+  
+  bool get isDarkMode  => ThemeController.isDarkMode.value;
+
+  set setDarkMode(bool value) => ThemeController.isDarkMode.value = value;
+
   ThemeData get themeData => isDarkMode
-    ? AppTheme.darkMode
+    ? AppTheme.darkMode 
     : AppTheme.lightMode;
+
 }
 
 abstract class AppTheme{
 
   static final ThemeData lightMode = _getThemeMode(LightValues.i);
   static final ThemeData darkMode = _getThemeMode(DarkValues.i);
-  static ThemeData get _themeData => ThemeController.isDarkMode.value 
-    ? ThemeData.dark()
-    : ThemeData.light();
+  static ThemeData? _themeData;
 
   /// Definir o tema fazendo uma Cópia do tema [ligth] ou [dark] 
   /// e adicinar os valores de preferência para cada tema recebidos 
   /// das classes [LightValues] e [DarkValues] 
-  static ThemeData _getThemeMode(LightValues value){
+  static ThemeData _getThemeMode<T extends LightValues>(T value){
+    
+    _themeData = value is DarkValues 
+      ? ThemeData.dark()
+      : ThemeData.light();
+
     return ThemeData(
 
-
-      appBarTheme: _themeData.appBarTheme.copyWith(
+      appBarTheme: _themeData!.appBarTheme.copyWith(
         
         elevation: 0,        
         
@@ -68,22 +84,22 @@ abstract class AppTheme{
 
         color: value.appBarColor, //cor de todas as appBars do projeto inteiro
         
-        iconTheme: _themeData.iconTheme.copyWith(//icon (leading)
+        iconTheme: _themeData!.iconTheme.copyWith(//icon (leading)
           color: value.appBarIconColor,//cor dos icones leading nas appBars
           size: value.appBarIconSize,
         ),
       
-        actionsIconTheme: _themeData.iconTheme.copyWith(//icon actions (trailing)
+        actionsIconTheme: _themeData!.iconTheme.copyWith(//icon actions (trailing)
           color: value.appBarActionsIconColor,//cor dos icones trailing nas appBars
           size:  value.appBarActionsIconSize,
         ),
       ),
       
-      textTheme: _themeData.textTheme.copyWith(
+      textTheme: _themeData!.textTheme.copyWith(
         headline6: value.appBarTitleTextStyle,
       ),
     
-      brightness: ThemeController.isDarkMode.value ? Brightness.dark : Brightness.light,
+      brightness: value is DarkValues ? Brightness.dark : Brightness.light,
       scaffoldBackgroundColor: value.scaffoldBackgroundColor, //cor de para todas as Scaffolds do projeto (default is white)
       toggleableActiveColor: value.toggleableActiveColor,//cor dos widgets Switch, Radio, e Checkbox.
       //primarySwatch: value.primarySwatchColor,//cor primaria
@@ -101,11 +117,11 @@ abstract class AppTheme{
       */
       
       cupertinoOverrideTheme: CupertinoThemeData(
-        brightness: ThemeController.isDarkMode.value ? Brightness.dark : Brightness.light,
+        brightness: value is DarkValues ? Brightness.dark : Brightness.light,
         scaffoldBackgroundColor: value.scaffoldBackgroundColor,
         primaryColor: value.primaryColor,
         barBackgroundColor: value.appBarColor, 
-        textTheme: CupertinoTextThemeData().copyWith(
+        textTheme: const CupertinoTextThemeData().copyWith(
           navTitleTextStyle: value.appBarTitleTextStyle,
         ),
       ),

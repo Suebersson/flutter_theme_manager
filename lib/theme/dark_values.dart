@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'lightValues.dart';
+import 'light_values.dart';
 
 /// Definifir as cores para o tema dark.
 /// Nesse classe devemos fazer apenas as alterações necessárias que define o tema dark
