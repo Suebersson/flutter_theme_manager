@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'light_values.dart';
-import 'dark_values.dart';
+part './light_values.dart';
+part './dark_values.dart';
 
 /// Numa aplicação real, para ter uma instância do [SharedPreferences] sigleton 
 /// disponivel para toda app será necessário usar um gerenciador de injeção de dependências 
@@ -61,16 +61,16 @@ extension ImplementThemeIntoObject on Object {
 
 abstract class AppTheme{
 
-  static final ThemeData lightMode = _getThemeMode(LightValues.i);
-  static final ThemeData darkMode = _getThemeMode(DarkValues.i);
+  static final ThemeData lightMode = _getThemeMode(_LightValues.i);
+  static final ThemeData darkMode = _getThemeMode(_DarkValues.i);
   static ThemeData? _themeData;
 
   /// Definir o tema fazendo uma Cópia do tema [ligth] ou [dark] 
   /// e adicinar os valores de preferência para cada tema recebidos 
   /// das classes [LightValues] e [DarkValues] 
-  static ThemeData _getThemeMode<T extends LightValues>(T value){
+  static ThemeData _getThemeMode<T extends _LightValues>(T value){
     
-    _themeData = value is DarkValues 
+    _themeData = value is _DarkValues 
       ? ThemeData.dark()
       : ThemeData.light();
 
@@ -95,11 +95,12 @@ abstract class AppTheme{
         ),
       ),
       
+      //https://m2.material.io/design/typography/the-type-system.html#type-scale
       textTheme: _themeData!.textTheme.copyWith(
         headline6: value.appBarTitleTextStyle,
       ),
     
-      brightness: value is DarkValues ? Brightness.dark : Brightness.light,
+      brightness: value is _DarkValues ? Brightness.dark : Brightness.light,
       scaffoldBackgroundColor: value.scaffoldBackgroundColor, //cor de para todas as Scaffolds do projeto (default is white)
       toggleableActiveColor: value.toggleableActiveColor,//cor dos widgets Switch, Radio, e Checkbox.
       //primarySwatch: value.primarySwatchColor,//cor primaria
@@ -108,16 +109,16 @@ abstract class AppTheme{
       fontFamily: value.fontFamily,//estilo da font dos textos
       splashColor: value.splashColor,//cor do splash ao clicar nos botões
       
-      /*
-        - Atribuindo os valores do tema para os widgets da lib Cupertino
-        - Qualquer widget da lib Cupertino dentro do MaterialApp também receberá 
-          os valores do ThemeData do Material design
-        - Isso possibilita usar os widgets da lib Cupertino dentro do Material
-          sem se preocupar com o context do MaterialApp ou CupertinoApp
-      */
       
+      /// Atribuindo os valores do tema para os widgets da lib [CupertinoApp]
+      /// Qualquer widget da lib Cupertino dentro do MaterialApp também receberá 
+      /// os valores do ThemeData do Material design
+      /// 
+      /// Isso possibilita usar os widgets da lib Cupertino dentro do Material
+      /// sem se preocupar com o context do [MaterialApp] ou [CupertinoApp]
+      ///
       cupertinoOverrideTheme: CupertinoThemeData(
-        brightness: value is DarkValues ? Brightness.dark : Brightness.light,
+        brightness: value is _DarkValues ? Brightness.dark : Brightness.light,
         scaffoldBackgroundColor: value.scaffoldBackgroundColor,
         primaryColor: value.primaryColor,
         barBackgroundColor: value.appBarColor, 

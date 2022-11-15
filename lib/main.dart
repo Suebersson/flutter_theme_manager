@@ -7,13 +7,12 @@ void main() async{
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  //verificar se o app esta configurada para o modo dark antes de iniciar o app
+  // Carregar o tema da app antes de inicia-lá
   await ThemeController.loadTheme().whenComplete(() {
     runApp(const StartApp());
   });
 
 }
-
 
 class StartApp extends StatelessWidget {
   const StartApp({Key? key}) : super(key: key);

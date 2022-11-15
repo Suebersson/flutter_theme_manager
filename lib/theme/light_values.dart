@@ -1,36 +1,30 @@
-import 'package:flutter/material.dart';
+part of './app_theme.dart';
 
 /// classe responsável por todos os valores do tema light da app.
 /// A partir dessa classe, a classe responsável pelo tema dark receberá as cores
 /// que define o tema e támbem fará uma cópia dos styles atribuidos aqui 
-class LightValues {
+class _LightValues {
 
-  static LightValues? _instance;
+  static final _LightValues _instance = _LightValues._();
+  static _LightValues get i =>_instance;
+  _LightValues._();
 
-  static var GoogleFonts;
-
-  LightValues._();
-
-  static LightValues get i {
-    _instance ??= LightValues._();
-    return _instance!;
-  }
-
+  final double appBarIconSize = 26.0;
+  final double appBarActionsIconSize = 26.0;
   final Color appBarColor = Colors.red;
   final Color appBarIconColor = Colors.white;
-  final double appBarIconSize = 26.0;
   final Color appBarActionsIconColor = Colors.white;
-  final double appBarActionsIconSize = 26.0;
   final Color toggleableActiveColor = Colors.blueGrey;
   final Color scaffoldBackgroundColor = Colors.white; 
   final Color primaryColor = Colors.grey;
+  final Color splashColor = Colors.cyan;
+  final String fontFamily = "Dancing Script";
   final TextStyle appBarTitleTextStyle = const TextStyle(
     color: Colors.white, 
     fontSize: 22, 
-    fontWeight: FontWeight.w600
+    fontWeight: FontWeight.bold,
+    fontFamily: "Dancing Script",
   );
-  final String fontFamily = "monospace"; //"Georgia";
-  final Color splashColor = Colors.cyan;
 
 }
 
