@@ -3,15 +3,15 @@ part of './app_theme.dart';
 /// classe responsável por todos os valores do tema light da app.
 /// A partir dessa classe, a classe responsável pelo tema dark receberá as cores
 /// que define o tema e támbem fará uma cópia dos styles atribuidos aqui 
-class _LightValues {
+class LightValues {
 
-  static final _LightValues _instance = _LightValues._();
-  static _LightValues get i =>_instance;
-  _LightValues._();
+  static final LightValues _instance = LightValues._();
+  static LightValues get i =>_instance;
+  LightValues._();
 
   final double appBarIconSize = 26.0;
   final double appBarActionsIconSize = 26.0;
-  final Color appBarColor = Colors.red;
+  final Color appBarColor = const Color(0xFFF44336); /// [Colors.red];
   final Color appBarIconColor = Colors.white;
   final Color appBarActionsIconColor = Colors.white;
   final Color toggleableActiveColor = Colors.blueGrey;
