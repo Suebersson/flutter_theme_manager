@@ -47,7 +47,7 @@ class StartApp extends StatelessWidget {
   const StartApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    print('initialazed app');
+    debugPrint('initialazed app');
     return ValueListenableBuilder<bool>(
       valueListenable: ThemeController.isDarkMode,
       builder: (_context, _isDarkMode, _child) {

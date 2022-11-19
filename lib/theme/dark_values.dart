@@ -22,7 +22,7 @@ class DarkValues implements LightValues{
   @override
   Color get toggleableActiveColor => const Color.fromARGB(255, 117, 189, 120);
   @override
-  Color get scaffoldBackgroundColor => const Color.fromARGB(57, 155, 154, 154);
+  Color get scaffoldBackgroundColor => const Color.fromARGB(255, 39, 38, 38);
   @override
   Color get primaryColor => Colors.blueGrey;
   @override
