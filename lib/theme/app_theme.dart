@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:dart_dev_utils/dart_dev_utils.dart';
 
 part './light_values.dart';
 part './dark_values.dart';
@@ -16,7 +17,7 @@ abstract class ThemeController {
 
   //verificar o modo dark está ativo
   static Future<void> loadTheme() async {
-    
+
     appConfigData = await SharedPreferences.getInstance();
 
     if(appConfigData.containsKey('IsDarkMode')) {
@@ -27,7 +28,10 @@ abstract class ThemeController {
 
     isDarkMode.addListener(() {
       appConfigData.setBool('IsDarkMode', isDarkMode.value);
-      print('Setted dark Mode: ${isDarkMode.value}');
+      printLog(
+        'Setted dark Mode: ${isDarkMode.value}',
+        name: 'app_Theme.dart > ThemeController > loadTheme'
+      );
     });
 
   }
@@ -37,7 +41,7 @@ abstract class ThemeController {
 /// Injetar o tema da app dentro do context de toda árvores de widgets
 extension ImplementThemeIntoContext on BuildContext {
 
-  bool get isDarkMode  => ThemeController.isDarkMode.value;
+  bool get isDarkMode => ThemeController.isDarkMode.value;
 
   set setDarkMode(bool value) => ThemeController.isDarkMode.value = value;
 

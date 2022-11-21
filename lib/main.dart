@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:dart_dev_utils/dart_dev_utils.dart';
 
 import 'theme/app_theme.dart';
 import 'pages/home_page.dart';
@@ -43,11 +44,18 @@ void main() async{
 
 }
 
+
 class StartApp extends StatelessWidget {
   const StartApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    debugPrint('initialazed app');
+    // debugPrint('initialazed app');
+
+    printLog(
+      'initialazed app',
+      name: 'Theme manger'
+    );
+
     return ValueListenableBuilder<bool>(
       valueListenable: ThemeController.isDarkMode,
       builder: (_context, _isDarkMode, _child) {
