@@ -113,7 +113,6 @@ abstract class AppTheme{
       fontFamily: value.fontFamily,//estilo da font dos textos
       splashColor: value.splashColor,//cor do splash ao clicar nos botões
 
-
       /// Atribuindo os valores do tema para os widgets da lib [CupertinoApp]
       /// Qualquer widget da lib Cupertino dentro do MaterialApp também receberá 
       /// os valores do ThemeData do Material design
