@@ -45,7 +45,7 @@ extension ImplementThemeIntoContext on BuildContext {
 
   set setDarkMode(bool value) => ThemeController.isDarkMode.value = value;
 
-  ThemeData get themeData => Theme.of(this);
+  ThemeData get theme => Theme.of(this);
 
 }
 
