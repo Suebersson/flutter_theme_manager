@@ -6,6 +6,7 @@
 ::Pause
 
 ::set GIT_PATH=C:\Program Files (x86)\Git\bin\git.exe
+::BRANCH: origin, upstream
 set BRANCH=upstream
 set GIT_DOMAIN=https://github.com/
 
@@ -28,7 +29,7 @@ for /f %%f in ('git config --get user.name') do set GIT_USER=%%f
 
 git init
 git add .
-git commit -m "name commit"
+git commit -m "theme manager"
 git remote add %BRANCH% %GIT_DOMAIN%%GIT_USER%/%thisFolder%.git
 git pull %BRANCH% main
 git push -u %BRANCH% main
@@ -36,5 +37,3 @@ git push -u %BRANCH% main
 @echo.
 @echo.
 Pause
-
-::-----------------------------------------------------------------------------------------------------------------------
