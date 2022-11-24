@@ -1,3 +1,10 @@
+
+:: Para chamar/executar esse script no CMD, basta apenas digitar o nome do 'fileName.bat'
+::
+:: Ja no PowerShell, tem que digitar o comando 'cmd' primeiro e depois o 'fileName.bat'
+:: --> cmd
+:: --> fileName.bat
+
 @ECHO off
 :: ########## Caminhos de diretorios ###########
 ::@echo %cd%
