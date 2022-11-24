@@ -1,10 +1,16 @@
-
-:: Para chamar/executar esse script no CMD, basta apenas digitar o nome 'gitUpgrade.bat'
 ::
-:: Ja no PowerShell, tem que digitar o comando 'cmd' primeiro e depois 'gitUpgrade.bat'
+:: Para chamar/executar esse script no CMD, basta apenas digitar o nome 'gitUpgrade.bat' + 'ENTER'
+::
+:: Ja no PowerShell, tem que digitar o comando 'cmd' primeiro e depois 'gitUpgrade.bat' + 'ENTER'
 :: --> cmd
 :: --> gitUpgrade.bat
-
+::
+:: Observações importantes, para não armazenar esse arquivo(gitUpgrade.bat) na pasta do projeto
+:: no Git basta apenas adicionar *.bat no arquivo .gitignore
+::
+:: Já na arquitetura de projetos dart e flutter basta apenas criar o arquivo .pubignore, 
+:: caso ele não exista, e adicionar *.bat
+::
 @ECHO off
 :: ########## Caminhos de diretorios ###########
 ::@echo %cd%
