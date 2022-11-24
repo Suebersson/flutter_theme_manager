@@ -20,7 +20,7 @@
 
 ::set GIT_PATH=C:\Program Files (x86)\Git\bin\git.exe
 ::BRANCH: origin, upstream
-set BRANCH=upstream
+set BRANCH=oringin
 set GIT_DOMAIN=https://github.com/
 
 ::get and set this project folder
