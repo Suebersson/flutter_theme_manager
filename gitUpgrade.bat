@@ -1,9 +1,9 @@
 
-:: Para chamar/executar esse script no CMD, basta apenas digitar o nome do 'fileName.bat'
+:: Para chamar/executar esse script no CMD, basta apenas digitar o nome 'gitUpgrade.bat'
 ::
-:: Ja no PowerShell, tem que digitar o comando 'cmd' primeiro e depois o 'fileName.bat'
+:: Ja no PowerShell, tem que digitar o comando 'cmd' primeiro e depois 'gitUpgrade.bat'
 :: --> cmd
-:: --> fileName.bat
+:: --> gitUpgrade.bat
 
 @ECHO off
 :: ########## Caminhos de diretorios ###########
@@ -36,7 +36,7 @@ for /f %%f in ('git config --get user.name') do set GIT_USER=%%f
 
 git init
 git add .
-git commit -m "theme manager"
+git commit -m %thisFolder%
 git remote add %BRANCH% %GIT_DOMAIN%%GIT_USER%/%thisFolder%.git
 git pull %BRANCH% main
 git push -u %BRANCH% main
