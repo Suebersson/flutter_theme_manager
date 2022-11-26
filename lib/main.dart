@@ -62,7 +62,7 @@ class StartApp extends StatelessWidget {
         return MaterialApp(
           title: 'Theme manager',
           //tema dinamico para o material ou cupertino
-          theme: _isDarkMode ? AppTheme.darkMode : AppTheme.lightMode,
+          theme: _isDarkMode ? SetedTheme.darkMode : SetedTheme.lightMode,
           home: const HomePage(),
         );
       }

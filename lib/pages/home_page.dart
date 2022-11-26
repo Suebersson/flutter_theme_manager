@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../theme/app_theme.dart';
 
-class HomePage extends StatelessWidget with ThemeController {
+class HomePage extends StatelessWidget with AppTheme {
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -20,10 +20,10 @@ class HomePage extends StatelessWidget with ThemeController {
               Icons.add, 
               //color: Theme.of(context).appBarTheme.actionsIconTheme?.color,
               //size: Theme.of(context).appBarTheme.actionsIconTheme?.size,
-              //color: context.themeData.appBarTheme.actionsIconTheme?.color,
-              //size: context.themeData.appBarTheme.actionsIconTheme?.size,
-              color: themeData.appBarTheme.actionsIconTheme?.color,
-              size: themeData.appBarTheme.actionsIconTheme?.size,
+              //color: context.theme.appBarTheme.actionsIconTheme?.color,
+              //size: context.theme.appBarTheme.actionsIconTheme?.size,
+              color: theme.appBarTheme.actionsIconTheme?.color,
+              size: theme.appBarTheme.actionsIconTheme?.size,
             ),
             padding: const EdgeInsets.only(right: 15),
             onPressed: (){},
@@ -51,9 +51,10 @@ class HomePage extends StatelessWidget with ThemeController {
                 Switch(
                   //formas de atribuir um valor do ThemeData a uma propriedade 
                   //activeColor: Theme.of(context).toggleableActiveColor,
-                  //activeColor: context.themeData.toggleableActiveColor,
-                  //activeColor: themeData.toggleableActiveColor,
-                  value: context.isDarkMode,
+                  //activeColor: context.theme.toggleableActiveColor,
+                  activeColor: theme.toggleableActiveColor,
+                  // value: context.isDarkMode,
+                  value: isDarkMode,
                   onChanged: (bool value){// definir o tema da app
                     //ThemeController.isDarkMode.value = value;
                     // Definindo pelo context

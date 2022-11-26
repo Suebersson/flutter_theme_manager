@@ -46,30 +46,37 @@ extension ImplementThemeIntoContext on BuildContext {
   set setDarkMode(bool value) => ThemeController.isDarkMode.value = value;
 
   ThemeData get theme => Theme.of(this);
+  ThemeData get lightTheme => SetedTheme.lightMode;
+  ThemeData get darkTheme => SetedTheme.darkMode;
 
 }
 
 /// Desse forma é possível acessar o tema de qualquer [Object] 
-/// em toda app mesmo sem o context
-extension ImplementThemeIntoObject on Object {
-  
+/// em toda app mesmo sem o context, basta apenas instânciar, herdar 
+/// ou mixar esse objeto [AppTheme]
+class AppTheme {
+
   bool get isDarkMode  => ThemeController.isDarkMode.value;
 
   set setDarkMode(bool value) => ThemeController.isDarkMode.value = value;
 
-  ThemeData get themeData => isDarkMode
-    ? AppTheme.darkMode 
-    : AppTheme.lightMode;
+  ThemeData get theme => isDarkMode
+    ? SetedTheme.darkMode 
+    : SetedTheme.lightMode;
+  
+  ThemeData get lightTheme => SetedTheme.lightMode;
+  
+  ThemeData get darkTheme => SetedTheme.darkMode;
 
 }
 
-abstract class AppTheme{
+abstract class SetedTheme{
 
   static final ThemeData lightMode = _getThemeMode(LightValues.i);
   static final ThemeData darkMode = _getThemeMode(DarkValues.i);
   static ThemeData? _themeData;
 
-  /// Definir o tema fazendo uma Cópia do tema [ligth] ou [dark] 
+  /// Definir o tema fazendo uma Cópia do tema [light] ou [dark] 
   /// e adicinar os valores de preferência para cada tema recebidos 
   /// das classes [LightValues] e [DarkValues] 
   static ThemeData _getThemeMode<T extends LightValues>(T value){
