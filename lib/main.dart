@@ -9,7 +9,8 @@ import 'pages/splash_screen.dart';
 bool starApp = false;
 
 void main() async{
-
+  
+  /// Executar procedimentos antes ou depois da app iniciar
   WidgetsFlutterBinding.ensureInitialized();
 
   /// Exibir a Splash screen enquantos as dependências são carregadas
@@ -28,18 +29,25 @@ void main() async{
 
   /// executar/carregar multiplos procedimento que serão executados aos mesmo tempo(assíncrono), 
   /// depois que completar as execuções a app será iniciada
-  await Future.wait([
-    ThemeController.loadTheme(),
-    // injeção de dependencias gerais,
-    // appConfigData,
-    
-  ]).whenComplete(() {
+  await Future.wait(
+    [
+      ThemeController.loadTheme(),
+      // injeção de dependencias gerais,
+      // appConfigData,
+    ],
+    eagerError: true // se ocorrer algum erro na execução da funções, exiba imediatamente
+  ).then((_) {
     Timer.periodic(const Duration(milliseconds: 200), (timer){
-      if(starApp){
+      if(starApp) {
         timer.cancel();
         runApp(const StartApp());
       }
     });
+  }).catchError((error){
+    printLog(
+      'Error ao executar as funções de iniciação da app',
+      name: 'main'
+    );
   });
 
 }
