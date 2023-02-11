@@ -14,7 +14,7 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
 
   /// Exibir a Splash screen enquantos as dependências são carregadas
-  /// e carregar a app depois que as dependências forem carregadas
+  /// e recarregar a app depois que as dependências forem carregadas
   /// 
   /// Dessa forma a app será carregada apenas após a execução assíncrona da
   /// Splash e das dependências
@@ -31,9 +31,10 @@ void main() async{
   /// depois que completar as execuções a app será iniciada
   await Future.wait(
     [
-      ThemeController.loadTheme(),
+      AppTheme.loadTheme(),
       // injeção de dependencias gerais,
       // appConfigData,
+      // ...
     ],
     eagerError: true // se ocorrer algum erro na execução da funções, exiba imediatamente
   ).then((_) {
@@ -52,25 +53,26 @@ void main() async{
 
 }
 
-
-class StartApp extends StatelessWidget {
+class StartApp extends StatelessWidget with AppTheme{
   const StartApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     // debugPrint('initialazed app');
-
     printLog(
       'initialazed app',
-      name: 'Theme manger'
+      name: 'StartApp'
     );
 
     return ValueListenableBuilder<bool>(
-      valueListenable: ThemeController.isDarkMode,
-      builder: (_context, _isDarkMode, _child) {
+      valueListenable: AppTheme.isDarkModeState,
+      builder: (_, _isDarkMode, __) {
         return MaterialApp(
           title: 'Theme manager',
           //tema dinamico para o material ou cupertino
-          theme: _isDarkMode ? SetedTheme.darkMode : SetedTheme.lightMode,
+          themeMode: _isDarkMode ? ThemeMode.dark : ThemeMode.light,
+          theme: lightTheme,
+          darkTheme: darkTheme,
           home: const HomePage(),
         );
       }

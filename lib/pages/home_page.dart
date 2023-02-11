@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget with AppTheme {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          context.isDarkMode //ThemeController.isDarkMode.value
+          context.isDarkMode //AppTheme.isDarkMode.value
             ? 'App no modo dark'
             : 'App no modo light'
         ),
@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget with AppTheme {
                 Text(
                   "Modo escuro", 
                   style: Theme.of(context).appBarTheme.titleTextStyle!.copyWith(
-                    color: context.isDarkMode //ThemeController.isDarkMode.value
+                    color: context.isDarkMode //AppTheme.isDarkMode.value
                       ? Theme.of(context).appBarTheme.titleTextStyle!.color
                       : Theme.of(context).appBarTheme.backgroundColor,
                   ),
@@ -56,9 +56,9 @@ class HomePage extends StatelessWidget with AppTheme {
                   // value: context.isDarkMode,
                   value: isDarkMode,
                   onChanged: (bool value){// definir o tema da app
-                    //ThemeController.isDarkMode.value = value;
+                    // AppTheme.isDarkModeState.value = value;
                     // Definindo pelo context
-                    //context.setDarkMode = value;
+                    // context.setDarkMode = value;
                     // de qualquer objeto, até fora da árvore de widgets
                     setDarkMode = value;
                   },

@@ -3,11 +3,11 @@ part of './app_theme.dart';
 /// classe responsável por todos os valores do tema light da app.
 /// A partir dessa classe, a classe responsável pelo tema dark receberá as cores
 /// que define o tema e támbem fará uma cópia dos styles atribuidos aqui 
-class LightValues {
+class _LightValues {
 
-  static final LightValues _instance = LightValues._();
-  static LightValues get i =>_instance;
-  LightValues._();
+  static final _LightValues _instance = _LightValues._();
+  static _LightValues get i =>_instance;
+  _LightValues._();
 
   final double appBarIconSize = 26.0;
   final double appBarActionsIconSize = 26.0;
