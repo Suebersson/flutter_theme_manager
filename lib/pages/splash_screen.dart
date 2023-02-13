@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 
 import '../main.dart' show starApp;
+import '../theme/app_theme.dart';
 
 class SplashScreen extends StatefulWidget {
   
@@ -11,7 +12,7 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen>  with AppTheme{
 
   @override
   void didChangeDependencies() {
@@ -29,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      color: const Color(0xFFF44336),
+      color: lightTheme.appBarTheme.backgroundColor,
       child: Image.asset(
         "assets/images/logo_144x144.png", 
         fit: BoxFit.fill,

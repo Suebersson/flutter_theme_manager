@@ -41,7 +41,7 @@ abstract class AppTheme {
 
   set setDarkMode(bool value) => isDarkModeState.value = value;
 
-  ThemeData get theme => isDarkMode ? _Themes.darkMode : _Themes.lightMode;
+  ThemeData get theme => isDarkMode ? darkTheme : lightTheme;
   ThemeData get lightTheme => _Themes.lightMode;
   ThemeData get darkTheme => _Themes.darkMode;
 
@@ -55,7 +55,5 @@ extension InjectTheme on BuildContext {
   set setDarkMode(bool value) => AppTheme.isDarkModeState.value = value;
 
   ThemeData get theme => Theme.of(this);
-  ThemeData get lightTheme => _Themes.lightMode;
-  ThemeData get darkTheme => _Themes.darkMode;
 
 }
